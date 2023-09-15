@@ -1,0 +1,19 @@
+{
+  "name": "example-project",
+  "version": "1.0.0",
+  "description": "Lorem ipsum dolor sit amet",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild frontend/messageList/renderMessageList.jsx --bundle --sourcemap --watch --outdir=src/main/resources/static/frontend",
+    "build": "esbuild frontend/messageList/renderMessageList.jsx --bundle --sourcemap --minify --outdir=src/main/resources/static/frontend"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.19.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
