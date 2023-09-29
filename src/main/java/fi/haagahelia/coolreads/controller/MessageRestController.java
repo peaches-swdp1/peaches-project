@@ -17,7 +17,7 @@ public class MessageRestController {
 	private MessageRepository messageRepository;
 
 	@GetMapping("")
-	public List<Message> listMessages() {
+	public List<Message> getMessages() {
 		return messageRepository.findAll();
 	}
 }
