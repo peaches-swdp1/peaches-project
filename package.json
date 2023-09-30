@@ -4,8 +4,9 @@
   "description": "Lorem ipsum dolor sit amet",
   "main": "index.js",
   "scripts": {
-    "dev": "esbuild frontend/messageList/renderMessageList.jsx --bundle --sourcemap --watch --outdir=src/main/resources/static/frontend",
-    "build": "esbuild frontend/messageList/renderMessageList.jsx --bundle --sourcemap --minify --outdir=src/main/resources/static/frontend"
+    "esbuild-bundle": "esbuild frontend/messageList/renderMessageList.jsx --bundle --sourcemap --outdir=src/main/resources/static/frontend",
+    "dev": "npm run esbuild-bundle -- --watch",
+    "build": "npm run esbuild-bundle -- --minify"
   },
   "author": "",
   "license": "ISC",
