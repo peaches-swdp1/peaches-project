@@ -1,6 +1,6 @@
 package fi.haagahelia.coolreads.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -18,8 +18,7 @@ public class Message {
 	private Long id;
 	
 	@CreationTimestamp
-	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-	private LocalDateTime createdAt;
+	private Instant createdAt;
 
 	@Column(nullable=false)
 	private String content;
@@ -39,11 +38,11 @@ public class Message {
 		this.id = id;
 	}
 	
-	public LocalDateTime getCreatedAt() {
+	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 
