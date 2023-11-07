@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import fi.haagahelia.coolreads.repository.MessageRepository;
+import jakarta.validation.Valid;
 import fi.haagahelia.coolreads.dto.AddMessageDto;
 import fi.haagahelia.coolreads.model.Message;
 
@@ -38,10 +39,10 @@ public class MessageController {
 	}
 
 	@PostMapping("/messages/add")
-	public ModelAndView addMessage(@ModelAttribute AddMessageDto message) {
+	public String addMessage(@ModelAttribute AddMessageDto message) {
 		Message newMessage = new Message(message.getContent());
 		messageRepository.save(newMessage);
 
-		return new ModelAndView("redirect:/");
+		return "redirect:/";
 	}
 }
