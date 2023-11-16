@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<body>
+	<div layout:fragment="content">
+		<h1>Add a reading recommendation</h1>
+		<form target="/recommendations/add" method="post">
+			<div class="mb-3">
+				<label for="title" class="form-label">Title </label> <input
+					type="text" class="form-control" id="title" name="title"
+					placeholder="Type in your reading recommendation title here..."
+					required> <label for="link" class="form-label">Link</label>
+				<input type="text" class="form-control" id="link" name="link"
+					placeholder="Type in the link here..." required> <label
+					for="description" class="form-label">Description </label> <input
+					type="text" class="form-control" id="description"
+					name="description" placeholder="Type in the description here..."
+					required>
+			</div>
+			<button class="btn btn-primary">Add</button>
+			<a href="/" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</body>
+</html>
