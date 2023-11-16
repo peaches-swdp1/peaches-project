@@ -6,7 +6,7 @@ The "Cool Reads" project aims to create a web application that allows users to g
 1. [Prasanna Tamang Bomjan](https://github.com/PrasannaTB)
 2. [Aleksei Shevelenkov](https://github.com/alexonthespot7)
 3. [Polina Domracheva](https://github.com/PolinaD31)
-4. Iuliia Emelianova
+4. [Iuliia Emelianova](https://github.com/pug-yulia)
 
 ## Backlogs
 * [Product Backlog](https://github.com/orgs/peaches-swdp1/projects/1)
