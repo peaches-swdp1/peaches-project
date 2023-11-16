@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h1>Edit recommendation</h1>
+
+		<form th:object="${readingRecommendation}" th:action="@{/save}" action="#" method="post">
+
+			<input type="hidden" th:field="*{id}" />
+
+			<label for="title">Title</label>
+			<input type="text" id="title" th:field="*{title}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="link">Link</label>
+			<input type="text" id="link" th:field="*{link}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+			<label for="description">Description</label>
+			<input type="text" id="description" th:field="*{description}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+
+
+
+			<input class="btn btn-primary" type="submit" value="Save"></input>
+		</form>
+	</div>
+	</div>
+</body>
+
+</html>

@@ -2,13 +2,18 @@ package fi.haagahelia.coolreads.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import fi.haagahelia.coolreads.dto.AddReadingRecommendationDto;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
 import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
 
@@ -16,14 +21,13 @@ import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
 public class ReadingRecommendationController {
 	@Autowired
 	private ReadingRecommendationRepository readingRepository;
-	
+
 	@GetMapping("/")
 	public String renderReccomendationlist(Model model) {
 		model.addAttribute("recommendations", readingRepository.findAll());
-		
+
 		return "recommendationlist";
 	}
-	
 
 	@GetMapping("/recommendations/add")
 	public String renderAddRecommendationForm() {
@@ -36,6 +40,23 @@ public class ReadingRecommendationController {
 				readingRecommendation.getLink(), readingRecommendation.getDescription());
 		readingRepository.save(newReadingRecommendation);
 
-		return "redirect:/"; // link to readinglist
+		return "redirect:/"; 
 	}
+
+	// Edit student
+	@RequestMapping(value = "recommendations/edit/{id}", method = RequestMethod.GET)
+	public String editRecommendation(@PathVariable("id") Long recommendationId, Model model) {
+		ReadingRecommendation readingRecommendation = readingRepository.findById(recommendationId).get();
+		model.addAttribute("readingRecommendation", readingRecommendation);
+
+		return "editrecommendation";
+	}
+	
+	// Save new recommendation
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(ReadingRecommendation readingRecommendation){
+        readingRepository.save(readingRecommendation);
+        return "redirect:/";
+    }   
 }
+
