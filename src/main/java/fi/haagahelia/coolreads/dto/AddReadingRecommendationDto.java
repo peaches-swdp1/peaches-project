@@ -1,8 +1,15 @@
 package fi.haagahelia.coolreads.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class AddReadingRecommendationDto {
+	@NotEmpty
 	private String title;
+	
+	@NotEmpty
 	private String link;
+	
+	@NotEmpty
 	private String description;
 	
 	public AddReadingRecommendationDto() {}
