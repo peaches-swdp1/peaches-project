@@ -10,7 +10,8 @@
 
 <body>
 	<div layout:fragment="content">
-		<h1>Edit recommendation</h1>
+		<h1>Edit "<span th:text="${readingRecommendation.title}"></span>"</h1>
+
 
 		<form th:object="${readingRecommendation}" th:action="@{/save}" action="#" method="post">
 
@@ -32,7 +33,7 @@
 
 			<input class="btn btn-primary" type="submit" value="Save"></input>
 		</form>
-	
+
 	</div>
 </body>
 
