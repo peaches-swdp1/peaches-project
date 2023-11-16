@@ -12,6 +12,7 @@
                     <th>Title</th>
                     <th>Link</th>
                     <th>Description</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,12 @@
                     <td th:text="${recommendation.title}"></td>
                     <td th:text="${recommendation.link}"></td>
                     <td th:text="${recommendation.description}"></td>
+                    <td>
+                        <form method="post" th:action="@{/recommendations/delete}" class="delete-form">
+                            <input type="hidden" name="id" th:value="${recommendation.id}" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.haagahelia.coolreads.dto.AddReadingRecommendationDto;
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
@@ -37,5 +38,11 @@ public class ReadingRecommendationController {
 		readingRepository.save(newReadingRecommendation);
 
 		return "redirect:/"; // link to readinglist
+	}
+	
+	@PostMapping("/recommendations/delete")
+	public String deleteRecommendation(@RequestParam("id") Long readingRecommendationId) {
+	    readingRepository.deleteById(readingRecommendationId);
+	    return "redirect:/";
 	}
 }
