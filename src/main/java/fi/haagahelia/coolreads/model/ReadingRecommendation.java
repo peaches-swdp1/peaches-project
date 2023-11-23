@@ -19,6 +19,12 @@ public class ReadingRecommendation {
 	
 	@Column(nullable=false)
 	private String description;
+	
+	/*
+	@CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
+    */
 
 	public ReadingRecommendation() {}
 
