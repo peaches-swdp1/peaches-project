@@ -2,11 +2,10 @@
 
 ## Issues
 
-- The Spring Boot application won't start on my computer.
-- I always have conflicts when I try to pull code from the GitHub.
+- Some members had issues with Template not found in Eclipse.
+- Some members had problems with the conflicts resolution.
 
 ## Actions
 
-- Fix the broken Spring Boot setups together.
-- Pull code from GitHub more often.
-- Create smaller commits and push code to GitHub more often.
+- Move from Eclipse to VScode if you have problems with Eclipse.
+- Create small commits, pull and push often. 
