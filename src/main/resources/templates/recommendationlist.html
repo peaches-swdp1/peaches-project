@@ -12,7 +12,7 @@
 					<th>Title</th>
 					<th>Link</th>
 					<th>Description</th>
-				
+
 				</tr>
 			</thead>
 			<tbody>
@@ -21,8 +21,10 @@
 					<td th:text="${recommendation.title}"></td>
 					<td th:text="${recommendation.link}"></td>
 					<td th:text="${recommendation.description}"></td>
-					<td> <a class="btn btn-primary"
-							th:href="@{/recommendations/edit/{id}(id=${recommendation.id})}">Edit</a></td>
+					<td>
+						<a class="btn btn-secondary"
+							th:href="@{/recommendations/edit/{id}(id=${recommendation.id})}">Edit</a>
+					</td>
 					<td>
 						<form method="post" th:action="@{/recommendations/delete}" class="delete-form">
 							<input type="hidden" name="id" th:value="${recommendation.id}" />
