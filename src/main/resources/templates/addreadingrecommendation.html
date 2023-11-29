@@ -20,6 +20,7 @@
                     <option value="">Select a category</option>
                     <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}" th:selected="${category.name == readingRecommendationDto.categoryName}"></option>
                 </select>
+                </div>
 			<button class="btn btn-primary">Add</button>
 			<a href="/" class="btn btn-secondary">Cancel</a>
 		</form>
