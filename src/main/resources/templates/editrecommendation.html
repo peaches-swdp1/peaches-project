@@ -7,14 +7,14 @@
 
         <form method="post" th:action="@{/recommendations/edit/{id}(id=${recommendationId})}">
             <div class="mb-3">
-                <label for="title" class="form-label">Title:</label>
-                <input type="text" class="form-control" id="title" name="title" th:value="${readingRecommendationDto.title}" required />
+                <label for="title" class="form-label" >Title:</label>
+                <input type="text" class="form-control" id="title" name="title" th:value="${readingRecommendationDto.title}" required placeholder="Type in your reading recommendation title here..."/>
 
                 <label for="link" class="form-label">Link:</label>
-                <input type="url" class="form-control" id="link" name="link" th:value="${readingRecommendationDto.link}" required />
+                <input type="url" class="form-control" id="link" name="link" placeholder="Type in the link here..." th:value="${readingRecommendationDto.link}" required />
 
                 <label for="description" class="form-label">Description:</label>
-                <textarea id="description" name="description" class="form-control" required th:text="${readingRecommendationDto.description}"></textarea>
+                <textarea id="description" name="description" class="form-control" placeholder="Type in the description here..." required th:text="${readingRecommendationDto.description}"></textarea>
 
                 <label for="category" class="form-label">Category:</label>
                 <select id="category" name="categoryName" class="form-select" required>

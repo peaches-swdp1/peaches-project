@@ -39,12 +39,6 @@ public class ReadingRecommendation {
 	public ReadingRecommendation() {
 	}
 
-	public ReadingRecommendation(String title, String link, String description) {
-		this.title = title;
-		this.link = link;
-		this.description = description;
-	}
-
 	public ReadingRecommendation(String title, String link, String description, Category category) {
 		super();
 		this.title = title;
