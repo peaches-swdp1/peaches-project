@@ -1,5 +1,10 @@
 package fi.haagahelia.coolreads.model;
 
+import java.time.Instant;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,35 +17,34 @@ public class ReadingRecommendation {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String title;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String link;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String description;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
-	
-	
-	/*
-	@CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    private Date createdAt;
-    */
 
-	public ReadingRecommendation() {}
+	@CreationTimestamp(source = SourceType.DB)
+	private Instant createdOn;
+	@UpdateTimestamp(source = SourceType.DB)
+	private Instant lastUpdatedOn;
+
+	public ReadingRecommendation() {
+	}
 
 	public ReadingRecommendation(String title, String link, String description) {
 		this.title = title;
 		this.link = link;
 		this.description = description;
 	}
-	
+
 	public ReadingRecommendation(String title, String link, String description, Category category) {
 		super();
 		this.title = title;
@@ -88,5 +92,20 @@ public class ReadingRecommendation {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
+	public Instant getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Instant createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Instant getLastUpdatedOn() {
+        return lastUpdatedOn;
+    }
+
+    public void setLastUpdatedOn(Instant lastUpdatedOn) {
+        this.lastUpdatedOn = lastUpdatedOn;
+    }
 }
