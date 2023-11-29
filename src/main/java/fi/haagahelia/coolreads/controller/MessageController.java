@@ -8,10 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.haagahelia.coolreads.repository.MessageRepository;
-import jakarta.validation.Valid;
 import fi.haagahelia.coolreads.dto.AddMessageDto;
 import fi.haagahelia.coolreads.model.Message;
 
@@ -27,7 +26,7 @@ public class MessageController {
 
 		return "messagelist";
 	}
-	
+
 	@GetMapping("/react-messages")
 	public String renderReactMessageList(Model model) {
 		return "reactmessagelist";
@@ -45,4 +44,6 @@ public class MessageController {
 
 		return "redirect:/";
 	}
+
+	
 }

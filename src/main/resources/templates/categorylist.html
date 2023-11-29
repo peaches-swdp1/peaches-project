@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<body>
+	<div layout:fragment="content">
+
+		<h1>Catergories</h1>
+
+		<table class="table">
+			<thead>
+				<ul>
+					<li th:each="category: ${categories}" th:text="${category.name}"></li>
+				</ul>
+				</tbody>
+		</table>
+
+
+		<a class="btn btn-primary" href="/categories/add">Add a category</a>
+
+	</div>
+</body>
+
+</html>
