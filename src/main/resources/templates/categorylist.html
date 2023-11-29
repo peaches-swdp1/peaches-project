@@ -4,16 +4,11 @@
 <body>
 	<div layout:fragment="content">
 
-		<h1>Catergories</h1>
+		<h1>Categories</h1>
 
-		<table class="table">
-			<thead>
-				<ul>
-					<li th:each="category: ${categories}" th:text="${category.name}"></li>
-				</ul>
-				</tbody>
-		</table>
-
+		<ul>
+			<li th:each="category: ${categories}" th:text="${category.name}"></li>
+		</ul>
 
 		<a class="btn btn-primary" href="/categories/add">Add a category</a>
 
