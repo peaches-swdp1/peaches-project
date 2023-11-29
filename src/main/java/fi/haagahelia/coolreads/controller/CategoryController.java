@@ -30,7 +30,14 @@ public class CategoryController {
 	}
 
 	@PostMapping("/categories/add")
-	public String addMessage(@ModelAttribute AddCategoryDto category) {
+	public String addMessage(@ModelAttribute AddCategoryDto category, Model model) {
+		Category existingCategory = categoryRepository.findByName(category.getName());
+		
+		if (existingCategory != null) {
+	        model.addAttribute("errorMessage", "Category with this name already exists. Please choose a different name.");
+	        return "addcategory";
+	    }
+		
 		Category newCategory = new Category(category.getName());
 		categoryRepository.save(newCategory);
 

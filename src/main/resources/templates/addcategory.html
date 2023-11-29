@@ -4,12 +4,15 @@
 <body>
 	<div layout:fragment="content">
 		<h1>Add a category</h1>
-		<form target="/categories/add" method="post">
+		<div th:if="${errorMessage}" class="alert alert-danger">
+			<p th:text="${errorMessage}"></p>
+		</div>
+
+		<form action="/categories/add" method="post">
 			<div class="mb-3">
 				<label for="name" class="form-label">Name </label> <input
 					type="text" class="form-control" id="name" name="name"
-					placeholder="Type in your category name here..."
-					required>
+					placeholder="Type in your category name here..." required>
 			</div>
 			<button class="btn btn-primary">Add</button>
 			<a href="/" class="btn btn-secondary">Cancel</a>
