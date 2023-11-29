@@ -25,7 +25,8 @@
 						th:text="${recommendation.link}"></a></td>
 					<td th:text="${recommendation.description}"></td>
 					<td th:text="${recommendation.category?.name}"></td>
-					<td th:text="${#temporals.format(recommendation.createdOn, 'dd.MM.yyyy')}"></td>
+					<td
+						th:text="${#temporals.format(recommendation.createdOn, 'dd.MM.yyyy')}"></td>
 
 
 					<td><a class="btn btn-primary"
@@ -33,7 +34,8 @@
 					</td>
 					<td>
 						<form method="post" th:action="@{/recommendations/delete}"
-							class="delete-form">
+							class="delete-form"
+							onsubmit="return confirm('Are you sure you want to delete this recommendation?');">
 							<input type="hidden" name="id" th:value="${recommendation.id}" />
 							<button type="submit" class="btn btn-danger">Delete</button>
 						</form>
