@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ReadingRecommendation {
@@ -20,6 +22,11 @@ public class ReadingRecommendation {
 	@Column(nullable=false)
 	private String description;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoryId")
+	private Category category;
+	
+	
 	/*
 	@CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -32,6 +39,14 @@ public class ReadingRecommendation {
 		this.title = title;
 		this.link = link;
 		this.description = description;
+	}
+	
+	public ReadingRecommendation(String title, String link, String description, Category category) {
+		super();
+		this.title = title;
+		this.link = link;
+		this.description = description;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -64,6 +79,14 @@ public class ReadingRecommendation {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 }

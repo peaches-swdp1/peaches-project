@@ -4,7 +4,7 @@
 <body>
 	<div layout:fragment="content">
 		<h1>Add a reading recommendation</h1>
-		<form target="/recommendations/add" method="post">
+		<form th:object="${readingRecommendationDto}" th:action="@{/recommendations/add}" action="#" method="post">
 			<div class="mb-3">
 				<label for="title" class="form-label">Title </label> <input
 					type="text" class="form-control" id="title" name="title"
@@ -16,6 +16,12 @@
 					type="text" class="form-control" id="description"
 					name="description" placeholder="Type in the description here..."
 					required>
+					<label for="categoryName" class="form-label">Category</label>
+    <select class="form-select" id="categoryName" name="categoryName" required>
+        <option value="">Select a category</option>
+        <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+    </select>
+
 			</div>
 			<button class="btn btn-primary">Add</button>
 			<a href="/" class="btn btn-secondary">Cancel</a>

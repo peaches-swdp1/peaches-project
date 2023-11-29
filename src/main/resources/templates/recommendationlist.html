@@ -12,6 +12,7 @@
 					<th>Title</th>
 					<th>Link</th>
 					<th>Description</th>
+					<th>Category</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -21,6 +22,7 @@
 						<a th:href="${recommendation.link}" th:text="${recommendation.link}"></a>
 					</td>
 					<td th:text="${recommendation.description}"></td>
+					<td th:text="${recommendation.category?.name}"></td>
 					<td>
 						<a class="btn btn-primary"
 							th:href="@{/recommendations/edit/{id}(id=${recommendation.id})}">Edit</a>

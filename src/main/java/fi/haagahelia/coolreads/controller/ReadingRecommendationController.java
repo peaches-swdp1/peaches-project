@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fi.haagahelia.coolreads.model.Category;
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
+import fi.haagahelia.coolreads.repository.CategoryRepository;
 import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
 
 @Controller
 public class ReadingRecommendationController {
 	@Autowired
 	private ReadingRecommendationRepository readingRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@GetMapping("/")
 	public String renderReccomendationlist(Model model) {
@@ -31,14 +36,17 @@ public class ReadingRecommendationController {
 	}
 
 	@GetMapping("/recommendations/add")
-	public String renderAddRecommendationForm() {
+	public String renderAddRecommendationForm(Model model) {
+		model.addAttribute("readingRecommendationDto", new AddReadingRecommendationDto());	
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "addreadingrecommendation";
 	}
 
 	@PostMapping("/recommendations/add")
-	public String addMessage(@ModelAttribute AddReadingRecommendationDto readingRecommendation) {
+	public String addMessage(@ModelAttribute("readingRecommendationDto") AddReadingRecommendationDto readingRecommendation) {
+		Category category = categoryRepository.findByName(readingRecommendation.getCategoryName());
 		ReadingRecommendation newReadingRecommendation = new ReadingRecommendation(readingRecommendation.getTitle(),
-				readingRecommendation.getLink(), readingRecommendation.getDescription());
+				readingRecommendation.getLink(), readingRecommendation.getDescription(), category);
 		readingRepository.save(newReadingRecommendation);
 
 		return "redirect:/"; 
@@ -49,6 +57,7 @@ public class ReadingRecommendationController {
 	public String editRecommendation(@PathVariable("id") Long recommendationId, Model model) {
 		ReadingRecommendation readingRecommendation = readingRepository.findById(recommendationId).get();
 		model.addAttribute("readingRecommendation", readingRecommendation);
+		model.addAttribute("categories", categoryRepository.findAll());
 
 		return "editrecommendation";
 	}

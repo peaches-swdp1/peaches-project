@@ -12,12 +12,23 @@ public class AddReadingRecommendationDto {
 	@NotEmpty
 	private String description;
 	
+	private String categoryName;
+	
 	public AddReadingRecommendationDto() {}
 
 	public AddReadingRecommendationDto(String title, String link, String description) {
 		this.title = title;
 		this.link = link;
 		this.description = description;
+	}
+
+	public AddReadingRecommendationDto(@NotEmpty String title, @NotEmpty String link, @NotEmpty String description,
+			String categoryName) {
+		super();
+		this.title = title;
+		this.link = link;
+		this.description = description;
+		this.categoryName = categoryName;
 	}
 
 	public String getTitle() {
@@ -43,4 +54,14 @@ public class AddReadingRecommendationDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
+	
 }
