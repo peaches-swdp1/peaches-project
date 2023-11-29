@@ -1,47 +1,31 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
 
-
-<head>
-	<title></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-</head>
-
 <body>
-	<div layout:fragment="content">
-		<h1>Edit "<span th:text="${readingRecommendation.title}"></span>"</h1>
+    <div layout:fragment="content">
+        <h1>Edit Reading Recommendation</h1>
 
+        <form method="post" th:action="@{/recommendations/edit/{id}(id=${recommendationId})}">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" th:value="${readingRecommendationDto.title}" required />
 
-		<form th:object="${readingRecommendation}" th:action="@{/save}" action="#" method="post">
+                <label for="link" class="form-label">Link:</label>
+                <input type="url" class="form-control" id="link" name="link" th:value="${readingRecommendationDto.link}" required />
 
-			<input type="hidden" th:field="*{id}" />
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" name="description" class="form-control" required th:text="${readingRecommendationDto.description}"></textarea>
 
-			<label for="title" class="Form-label">Title</label>
-			<input type="text" class="form-control" id="title" th:field="*{title}" required />
-			<div style="clear: both; display: block; height: 10px;"></div>
+                <label for="category" class="form-label">Category:</label>
+                <select id="category" name="categoryName" class="form-select" required>
+                    <option value="">Select a category</option>
+                    <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}" th:selected="${category.name == readingRecommendationDto.categoryName}"></option>
+                </select>
+            </div>
 
-			<label for="link" class="Form-label">Link</label>
-			<input type="url" class="form-control" id="link" th:field="*{link}" required />
-			<div style="clear: both; display: block; height: 10px;"></div>
-
-			<label for="description" class="Form-label">Description</label>
-			<input type="text" class="form-control" id="description" th:field="*{description}" required />
-			<div style="clear: both; display: block; height: 10px;"></div>
-
-			 <label for="categoryName" class="Form-label">Category</label>
-            <select class="form-select" id="categoryName" name="categoryName" required>
-                <option value="">Select a category</option>
-                <option th:each="category : ${categories}"
-                        th:value="${category.name}"
-                        th:text="${category.name}"
-                        th:selected="${category.name == readingRecommendation.category.name}"></option>
-            </select>
-			
-			<input class="btn btn-primary" type="submit" value="Save"></input>
-		</form>
-
-	</div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 </body>
-
 </html>

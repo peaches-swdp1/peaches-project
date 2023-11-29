@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fi.haagahelia.coolreads.dto.AddReadingRecommendationDto;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.coolreads.model.Category;
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
 import fi.haagahelia.coolreads.repository.CategoryRepository;
 import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
+
 
 @Controller
 public class ReadingRecommendationController {
@@ -52,22 +51,38 @@ public class ReadingRecommendationController {
 		return "redirect:/"; 
 	}
 
-	// Edit student
-	@RequestMapping(value = "recommendations/edit/{id}", method = RequestMethod.GET)
-	public String editRecommendation(@PathVariable("id") Long recommendationId, Model model) {
-		ReadingRecommendation readingRecommendation = readingRepository.findById(recommendationId).get();
-		model.addAttribute("readingRecommendation", readingRecommendation);
-		model.addAttribute("categories", categoryRepository.findAll());
+	@GetMapping("/recommendations/edit/{id}")
+	public String renderEditRecommendationForm(@PathVariable Long id, Model model) {
+	    ReadingRecommendation recommendation = readingRepository.findById(id).get();
 
-		return "editrecommendation";
+	    AddReadingRecommendationDto editDto = new AddReadingRecommendationDto(
+	            recommendation.getTitle(),
+	            recommendation.getLink(),
+	            recommendation.getDescription(),
+	            recommendation.getCategory().getName()
+	    );
+
+	    model.addAttribute("readingRecommendationDto", editDto);
+	    model.addAttribute("categories", categoryRepository.findAll());
+	    model.addAttribute("recommendationId", id);
+
+	    return "editrecommendation";
 	}
-	
-	// Save new recommendation
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(ReadingRecommendation readingRecommendation){
-        readingRepository.save(readingRecommendation);
-        return "redirect:/";
-    }   
+
+	@PostMapping("/recommendations/edit/{id}")
+	public String editRecommendation(@PathVariable Long id, @ModelAttribute("readingRecommendationDto") AddReadingRecommendationDto readingRecommendation) {
+	    Category category = categoryRepository.findByName(readingRecommendation.getCategoryName());
+	    ReadingRecommendation updatedRecommendation = new ReadingRecommendation(
+	            readingRecommendation.getTitle(),
+	            readingRecommendation.getLink(),
+	            readingRecommendation.getDescription(),
+	            category
+	    );
+	    updatedRecommendation.setId(id);
+	    readingRepository.save(updatedRecommendation);
+
+	    return "redirect:/";
+	}
 
 	
 	@PostMapping("/recommendations/delete")
