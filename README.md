@@ -24,6 +24,7 @@ If using Eclipse, you can also run the project in the following way:
 ## Backlogs
 * [Product Backlog](https://github.com/orgs/peaches-swdp1/projects/1)
 * [Sprint 1 Backlog](https://github.com/orgs/peaches-swdp1/projects/4)
+* [Spring 2 Backlog](https://github.com/orgs/peaches-swdp1/projects/6)
 
 
 
