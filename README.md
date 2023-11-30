@@ -15,6 +15,9 @@ If using Eclipse, you can also run the project in the following way:
 2. Run
 3. Navigate to localhost:8080
 
+You can find the deployed version of the application here:
+[Deployed URL](https://cool-reads-peaches.onrender.com)
+
 ## Team members
 1. [Prasanna Tamang Bomjan](https://github.com/PrasannaTB)
 2. [Aleksei Shevelenkov](https://github.com/alexonthespot7)
