@@ -41,7 +41,7 @@ public class CategoryController {
 		Category newCategory = new Category(category.getName());
 		categoryRepository.save(newCategory);
 
-		return "redirect:/";
+		return "redirect:/category";
 	}
 
 }

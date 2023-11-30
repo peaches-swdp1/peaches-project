@@ -1,5 +1,7 @@
 package fi.haagahelia.coolreads.dto;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.NotEmpty;
 
 public class AddReadingRecommendationDto {
@@ -7,6 +9,7 @@ public class AddReadingRecommendationDto {
 	private String title;
 	
 	@NotEmpty
+	@URL
 	private String link;
 	
 	@NotEmpty
