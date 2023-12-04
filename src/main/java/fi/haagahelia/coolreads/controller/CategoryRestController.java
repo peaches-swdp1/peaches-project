@@ -24,6 +24,11 @@ public class CategoryRestController {
 
     @Autowired
     private ReadingRecommendationRepository readingRepository;
+    
+    @GetMapping("")
+	public List<Category> getCategories() {
+		return categoryRepository.findAll();
+	}
 
     @GetMapping("/{categoryId}/recommendations")
     public ResponseEntity<List<ReadingRecommendation>> getRecommendationsByCategoryId(@PathVariable Long categoryId) {
