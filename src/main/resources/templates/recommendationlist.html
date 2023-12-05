@@ -1,52 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout.html}">
-
-<body>
-	<div layout:fragment="content">
-		<h1>Reading Recommendations</h1>
-
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Link</th>
-					<th>Description</th>
-					<th>Category</th>
-					<th>Added on</th>
-
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="recommendation : ${recommendations}">
-					<td th:text="${recommendation.title}"></td>
-					<td><a th:href="${recommendation.link}"
-						th:text="${recommendation.link}"></a></td>
-					<td th:text="${recommendation.description}"></td>
-					<td th:text="${recommendation.category?.name}"></td>
-					<td
-						th:text="${#temporals.format(recommendation.createdOn, 'dd.MM.yyyy')}"></td>
-
-
-					<td><a class="btn btn-primary"
-						th:href="@{/recommendations/edit/{id}(id=${recommendation.id})}">Edit</a>
-					</td>
-					<td>
-						<form method="post" th:action="@{/recommendations/delete}"
-							class="delete-form"
-							onsubmit="return confirm('Are you sure you want to delete this recommendation?');">
-							<input type="hidden" name="id" th:value="${recommendation.id}" />
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<a class="btn btn-primary" href="/recommendations/add">Add a
-			recommendation</a>
-	</div>
-</body>
-
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout.html}"
+>
+  <head>
+    <script th:src="@{/frontend/renderRecommendationList.js}" defer></script>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <div id="recommendationListRoot"></div>
+    </div>
+  </body>
 </html>
