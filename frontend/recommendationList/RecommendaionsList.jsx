@@ -3,16 +3,60 @@ import fetchRecommendations from "./fetchRecommendations";
 import RecommendationListItem from "./RecommendationListItem";
 
 export default function RecommendaionsList() {
-  const [readingRecommendaions, setReadingRecommendaions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("any");
+  const [recommendations, setRecommendations] = useState([]);
 
- useEffect(() => {
+  useEffect(() => {
+    fetch('/api/categories')
+        .then(response => {
+            if (!response.ok)
+                throw new Error("Something went wrong: " + response.statusText);
+
+            return response.json();
+        })
+        .then(data => setCategories(data))
+        .catch(err => console.error(err))
+  }, []);
+
+  useEffect(() => {
+	  console.log("Selected Category ID:", selectedCategoryId);
+    if (selectedCategoryId !== "any") {
+       fetch(`/api/categories/${selectedCategoryId}/recommendations`)
+    	.then((response) => response.json())
+        .then(data => {
+			console.log(data)
+			setRecommendations(data)})
+        .catch(err => console.error(err)) 
+    } else {
       fetchRecommendations()
-      .then(data => setReadingRecommendaions(data))
+      .then(data => setRecommendations(data))
       .catch(error => console.error("Error fetching trainings:", error))
-    }, [])
+    }
+  }, [selectedCategoryId]); // Re-run the effect when selectedCategoryId changes
+
+  function handleCategoryFilterChange(event) {
+    setSelectedCategoryId(event.target.value);
+  }
 
   return (
     <div>
+      <div class="mb-3">
+        <label class="form-label">Filter by a category</label>
+        <select
+          class="form-select"
+          onChange={handleCategoryFilterChange}
+          value={selectedCategoryId}
+        >
+          <option value="any">Any category</option>
+          {categories.map((category) => (
+            <option value={category.categoryId} key={category.categoryId}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
      <h1>Reading Recommendations</h1>
 
       <table className="table">
@@ -28,10 +72,10 @@ export default function RecommendaionsList() {
           </tr>
         </thead>
         <tbody>
-          {readingRecommendaions.map((readingRecommendaion) => (
+          {recommendations.map((recommendations) => (
             <RecommendationListItem
-              recommendation={readingRecommendaion}
-              key={readingRecommendaion.id}
+              recommendation={recommendations}
+              key={recommendations.id}
             />
           ))}
         </tbody>
@@ -40,6 +84,7 @@ export default function RecommendaionsList() {
       <a className="btn btn-primary" href="/recommendations/add">
         Add a Recommendation
       </a>
+    </div>
     </div>
   );
 }
