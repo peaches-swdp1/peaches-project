@@ -41,10 +41,10 @@ export default function RecommendaionsList() {
 
   return (
     <div>
-      <div class="mb-3">
-        <label class="form-label">Filter by a category</label>
+      <div className="mb-3">
+        <label className="form-label">Filter by a category</label>
         <select
-          class="form-select"
+          className="form-select"
           onChange={handleCategoryFilterChange}
           value={selectedCategoryId}
         >
@@ -76,6 +76,11 @@ export default function RecommendaionsList() {
             <RecommendationListItem
               recommendation={recommendations}
               key={recommendations.id}
+              onDelete={(deletedId) => {
+                setRecommendations((prevRecommendations) => 
+                  prevRecommendations.filter((rec) => rec.id!== deletedId));
+              }
+              }
             />
           ))}
         </tbody>
