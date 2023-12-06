@@ -6,6 +6,8 @@ export default function RecommendaionsList() {
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("any");
   const [recommendations, setRecommendations] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [originalRecommendations, setOriginalRecommendations] = useState([]);
 
   useEffect(() => {
     fetch('/api/categories')
@@ -26,17 +28,35 @@ export default function RecommendaionsList() {
     	.then((response) => response.json())
         .then(data => {
 			console.log(data)
-			setRecommendations(data)})
+			setRecommendations(data)
+			setOriginalRecommendations(data)})
         .catch(err => console.error(err)) 
     } else {
       fetchRecommendations()
-      .then(data => setRecommendations(data))
+      .then(data => {
+		  setRecommendations(data)
+		  setOriginalRecommendations(data)})
       .catch(error => console.error("Error fetching trainings:", error))
     }
   }, [selectedCategoryId]); // Re-run the effect when selectedCategoryId changes
 
+  useEffect(() => {
+    const keywordLowerCase = searchKeyword.toLowerCase();
+    const filtered = originalRecommendations.filter(
+      (recommendation) =>
+        recommendation.title.toLowerCase().includes(keywordLowerCase) ||
+        recommendation.description.toLowerCase().includes(keywordLowerCase)
+    );
+    setRecommendations(filtered);
+  }, [originalRecommendations, searchKeyword]);
+
   function handleCategoryFilterChange(event) {
     setSelectedCategoryId(event.target.value);
+  }
+  
+  
+  function handleSearchInputChange(event) {
+    setSearchKeyword(event.target.value);
   }
 
   return (
@@ -55,6 +75,16 @@ export default function RecommendaionsList() {
             </option>
           ))}
         </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Search by Title or Description</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter keyword"
+          value={searchKeyword}
+          onChange={handleSearchInputChange}
+        />
       </div>
       <div>
      <h1>Reading Recommendations</h1>
