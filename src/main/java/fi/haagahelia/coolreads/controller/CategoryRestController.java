@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -39,15 +40,9 @@ public class CategoryRestController {
 	@Operation(summary = "Reading recommendations of a category", description = "Fetches all the reading recommendations of a specific category")
 
 	@GetMapping("/{categoryId}/recommendations")
-	public ResponseEntity<List<ReadingRecommendation>> getRecommendationsByCategoryId(@PathVariable Long categoryId) {
-		Optional<Category> category = categoryRepository.findById(categoryId);
-
-		if (category.isPresent()) {
-			List<ReadingRecommendation> recommendations = readingRepository
-					.findByCategoryOrderByCreatedOnDesc(category.get());
-			return ResponseEntity.ok(recommendations);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+	public List<ReadingRecommendation> getRecommendationsByCategoryId(@PathVariable Long categoryId) {
+	    Category category = categoryRepository.findById(categoryId).orElseThrow(
+	    		() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + categoryId + " does not exist"));
+	    return readingRepository.findByCategoryOrderByCreatedOnDesc(category);
 	}
 }
