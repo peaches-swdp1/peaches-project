@@ -9,14 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
 import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/recommendations")
+@Tag(name = "Reading Recommendation", description = "Information about the reading recommendations and their categories")
 public class ReadingRecommendationRestController {
 	@Autowired
 	private ReadingRecommendationRepository readingRecommendationRepository;
-	
-	
+
+	@Operation(summary = "List of reading recommendations.", description = "Fetches all reading recommendations.")
+
 	@GetMapping("")
 	public List<ReadingRecommendation> getRecommendations() {
 		return readingRecommendationRepository.findAllByOrderByCreatedOnDesc();

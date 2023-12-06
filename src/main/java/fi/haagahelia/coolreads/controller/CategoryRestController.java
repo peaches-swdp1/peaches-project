@@ -15,31 +15,39 @@ import fi.haagahelia.coolreads.model.Category;
 import fi.haagahelia.coolreads.model.ReadingRecommendation;
 import fi.haagahelia.coolreads.repository.CategoryRepository;
 import fi.haagahelia.coolreads.repository.ReadingRecommendationRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/categories")
+@Tag(name = "Category", description = "Information about categories and their reading recommendations")
 public class CategoryRestController {
 	@Autowired
-    private CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 
-    @Autowired
-    private ReadingRecommendationRepository readingRepository;
-    
-    @GetMapping("")
+	@Autowired
+	private ReadingRecommendationRepository readingRepository;
+
+	@Operation(summary = "List of all categories", description = "Fetches all categories.")
+
+	@GetMapping("")
 	public List<Category> getCategories() {
 		return categoryRepository.findAll();
+
 	}
 
-    @GetMapping("/{categoryId}/recommendations")
-    public ResponseEntity<List<ReadingRecommendation>> getRecommendationsByCategoryId(@PathVariable Long categoryId) {
-    	Optional<Category> category = categoryRepository.findById(categoryId);
-    	 
-    	 if (category.isPresent()) {
-             List<ReadingRecommendation> recommendations = readingRepository.findByCategoryOrderByCreatedOnDesc(category.get());
-             return ResponseEntity.ok(recommendations);
-         } else {
-             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                     .body(null);
-         }
-    }
+	@Operation(summary = "Reading recommendations of a category", description = "Fetches all the reading recommendations of a specific category")
+
+	@GetMapping("/{categoryId}/recommendations")
+	public ResponseEntity<List<ReadingRecommendation>> getRecommendationsByCategoryId(@PathVariable Long categoryId) {
+		Optional<Category> category = categoryRepository.findById(categoryId);
+
+		if (category.isPresent()) {
+			List<ReadingRecommendation> recommendations = readingRepository
+					.findByCategoryOrderByCreatedOnDesc(category.get());
+			return ResponseEntity.ok(recommendations);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 }
