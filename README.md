@@ -36,7 +36,7 @@ You can find the deployed version of the application here:
    java -jar application.jar
 
 ## Documentation
-[Link to Swagger documentation](http://localhost:8080/swagger-ui/index.html#/)
+Link to Swagger documentation: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ## Team members
 1. [Prasanna Tamang Bomjan](https://github.com/PrasannaTB)
