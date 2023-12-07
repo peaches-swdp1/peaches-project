@@ -18,6 +18,23 @@ If using Eclipse, you can also run the project in the following way:
 You can find the deployed version of the application here:
 [Deployed URL](https://cool-reads-peaches.onrender.com)
 
+### Running the Application from the JAR File
+
+1. **Download the Latest Release JAR File:**
+
+   Visit the [Sprint 2 Release](https://github.com/peaches-swdp1/peaches-project/releases/tag/sprint2) page and download the latest JAR file (`application.jar`).
+
+2. **Navigate to the Downloaded File:**
+
+   Open your terminal or command prompt and navigate to the directory where the JAR file is downloaded.
+
+3. **Run the Application:**
+
+   Execute the following command to start the application:
+
+   ```bash
+   java -jar application.jar
+
 ## Documentation
 [Link to Swagger documentation](http://localhost:8080/v3/api-docs)
 
