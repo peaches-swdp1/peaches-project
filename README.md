@@ -47,7 +47,8 @@ Link to Swagger documentation: [http://localhost:8080/swagger-ui/index.html](htt
 ## Backlogs
 * [Product Backlog](https://github.com/orgs/peaches-swdp1/projects/1)
 * [Sprint 1 Backlog](https://github.com/orgs/peaches-swdp1/projects/4)
-* [Spring 2 Backlog](https://github.com/orgs/peaches-swdp1/projects/6)
+* [Sprin2 2 Backlog](https://github.com/orgs/peaches-swdp1/projects/6)
+* [Sprint 3 Backlog](https://github.com/orgs/peaches-swdp1/projects/8)
 
 
 
