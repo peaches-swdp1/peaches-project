@@ -4,7 +4,7 @@
 <body>
 	<div layout:fragment="content">
 		<h1>Register</h1>
-		<form th:action="@{/register}" th:object="${registerUserDto}" method="post">
+		<form th:action="@{/register}" th:object="${user}" method="post">
 			<div class="mb-3">
 				<label for="username" class="form-label">Username</label> <input
 					type="text" class="form-control" th:field="*{username}"

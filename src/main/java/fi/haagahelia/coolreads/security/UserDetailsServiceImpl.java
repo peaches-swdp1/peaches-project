@@ -6,24 +6,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import fi.haagahelia.coolreads.model.*;
 import fi.haagahelia.coolreads.repository.*;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService  {
-	private final AppUserRepository repository;
-
+public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
-	public UserDetailsServiceImpl(AppUserRepository userRepository) {
-	    this.repository = userRepository;
-	}
+	private AppUserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {   
-    	AppUser curruser = repository.findByUsername(username);
-        UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
-        		AuthorityUtils.createAuthorityList(curruser.getRole()));
-        return user;
-    }   
-} 
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		AppUser user = userRepository.findOneByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException(username));
+
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordHash(),
+				AuthorityUtils.createAuthorityList(user.getRole()));
+	}
+}

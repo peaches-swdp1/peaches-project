@@ -1,36 +1,35 @@
 package fi.haagahelia.coolreads.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "appuser")
 public class AppUser {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, updatable = false)
+	@GeneratedValue
 	private Long id;
 
-	@Column(name = "username", nullable = false, unique = true)
+	@Column(unique = true, nullable = false)
 	private String username;
 
-	@Column(name = "password", nullable = false)
+	@JsonIgnore
+	@Column(nullable = false)
 	private String passwordHash;
 
-	//@Column(name = "email")
-	//private String email;
-
-	@Column(name = "role", nullable = false)
+	@Column(nullable = false)
 	private String role;
 
 	public AppUser() {
-
 	}
 
 	public AppUser(String username, String passwordHash, String role) {
-		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
-		//this.email = email;
 		this.role = role;
 	}
 
@@ -58,15 +57,6 @@ public class AppUser {
 		this.passwordHash = passwordHash;
 	}
 
-	/*
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}*/
-	
 	public String getRole() {
 		return role;
 	}

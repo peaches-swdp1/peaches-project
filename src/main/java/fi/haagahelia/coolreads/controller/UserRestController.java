@@ -1,39 +1,36 @@
 package fi.haagahelia.coolreads.controller;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import fi.haagahelia.coolreads.dto.RegisterUserDto;
-import fi.haagahelia.coolreads.model.AppUser;
-import fi.haagahelia.coolreads.repository.AppUserRepository;
+import fi.haagahelia.coolreads.model.*;
+import fi.haagahelia.coolreads.repository.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
-
 	@Autowired
 	private AppUserRepository userRepository;
 
-	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@RequestBody RegisterUserDto registerUserDto) {
+	@GetMapping("")
+	public List<AppUser> getAllUsers() {
+		return userRepository.findAll();
+	}
 
-		if (userRepository.findByUsername(registerUserDto.getUsername()) != null) {
-			return new ResponseEntity<>("Username is already taken", HttpStatus.BAD_REQUEST);
+	@GetMapping("/current")
+	public AppUser getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+		if (userDetails == null) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication is required");
 		}
 
-		AppUser newUser = new AppUser();
-		newUser.setUsername(registerUserDto.getUsername());
-		newUser.setPasswordHash(new BCryptPasswordEncoder().encode(registerUserDto.getPassword()));
-		newUser.setRole(registerUserDto.getRole());
-
-		userRepository.save(newUser);
-
-		return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
+		return userRepository.findOneByUsername(userDetails.getUsername())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication is required"));
 	}
 }

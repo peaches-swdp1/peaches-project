@@ -32,9 +32,13 @@
 						aria-current="page" href="/">Recommendations</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/category">Categories</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/register">Register</a>
 				</ul>
+			</div>
+			<div>
+				<div class="d-flex" sec:authorize="isAnonymous()">
+					<a href="/login" class="me-2 btn btn-secondary">Sign in</a> <a
+						href="/register" class="btn btn-primary">Register</a>
+				</div>
 			</div>
 
 

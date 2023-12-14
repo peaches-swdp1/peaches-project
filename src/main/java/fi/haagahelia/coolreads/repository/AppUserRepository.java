@@ -1,13 +1,13 @@
 package fi.haagahelia.coolreads.repository;
 
-import java.util.List;
+import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import fi.haagahelia.coolreads.model.AppUser;
+import fi.haagahelia.coolreads.model.*;
 
-public interface AppUserRepository extends CrudRepository<AppUser, Long> {
-	AppUser findByUsername(String username);
-	
-	List<AppUser> findById(long id);
+@Repository
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+	Optional<AppUser> findOneByUsername(String username);
 }

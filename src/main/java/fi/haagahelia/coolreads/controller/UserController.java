@@ -1,7 +1,9 @@
 package fi.haagahelia.coolreads.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,47 +11,45 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import fi.haagahelia.coolreads.dto.RegisterUserDto;
-import fi.haagahelia.coolreads.repository.AppUserRepository;
-import fi.haagahelia.coolreads.security.UserDetailsServiceImpl;
+import fi.haagahelia.coolreads.dto.*;
+import fi.haagahelia.coolreads.repository.*;
 import fi.haagahelia.coolreads.model.*;
 import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
+	@Autowired
+	private AppUserRepository userRepository;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService; 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AppUserRepository userRepository; 
+	@GetMapping("/register")
+	public String renderRegisterForm(Model model) {
+		model.addAttribute("user", new RegisterUserDto());
 
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("registerUserDto", new RegisterUserDto());
-        return "register";
-    }
+		return "register";
+	}
 
-    @PostMapping("/register")
-    public String processRegistration(@ModelAttribute("registerUserDto") @Valid RegisterUserDto registerUserDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return "register";
-        }
+	@PostMapping("/register")
+	public String register(@Valid @ModelAttribute("user") RegisterUserDto user, BindingResult bindingResult,
+			Model model) {
+		Optional<AppUser> existingUser = userRepository.findOneByUsername(user.getUsername());
 
-        if (userRepository.findByUsername(registerUserDto.getUsername()) != null) {
-            result.rejectValue("username", "error.user", "Username is already taken");
-            return "register";
-        }
+		if (existingUser.isPresent()) {
+			bindingResult.rejectValue("username", "UsernameTaken",
+					"This username is already taken. Choose another one");
+		}
 
-        AppUser newUser = new AppUser();
-        newUser.setUsername(registerUserDto.getUsername());
-        newUser.setPasswordHash(new BCryptPasswordEncoder().encode(registerUserDto.getPassword()));
-        newUser.setRole(registerUserDto.getRole());
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("user", user);
+			return "register";
+		}
 
-     
-        userRepository.save(newUser);
+		String passwordHash = passwordEncoder.encode(user.getPassword());
+		AppUser newUser = new AppUser(user.getUsername(), passwordHash, "USER");
+		userRepository.save(newUser);
 
-        
-        return "redirect:/login";
-    }
+		return "redirect:/login";
+	}
 }
