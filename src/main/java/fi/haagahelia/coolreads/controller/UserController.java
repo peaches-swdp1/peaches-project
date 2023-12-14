@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import fi.haagahelia.coolreads.dto.*;
 import fi.haagahelia.coolreads.repository.*;
@@ -23,6 +24,11 @@ public class UserController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
+	}
 
 	@GetMapping("/register")
 	public String renderRegisterForm(Model model) {

@@ -20,12 +20,20 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.requestMatchers(antMatcher("/"), antMatcher("/register"),
-				antMatcher("/frontend/**"), antMatcher("/api/**"), antMatcher("/error"), antMatcher("/recommendationlist")).permitAll().anyRequest()
-				.authenticated());
+		http.authorizeHttpRequests((requests) -> requests
+				.requestMatchers(
+								antMatcher("/"), 
+								antMatcher("/register"), 
+								antMatcher("/frontend/**"),
+								antMatcher("/api/**"), 
+								antMatcher("/error"), 
+								antMatcher("/recommendationlist"))
+				.permitAll().anyRequest().authenticated());
 
-		http.formLogin((form) -> form.permitAll());
-		http.logout((logout) -> logout.permitAll());
+		http.formLogin((form) -> form.loginPage("/login").permitAll());
+		http.logout((logout) -> logout
+									.logoutRequestMatcher(antMatcher("/logout"))
+									.permitAll());
 
 		return http.build();
 	}
