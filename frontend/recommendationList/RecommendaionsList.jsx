@@ -115,6 +115,20 @@ export default function RecommendaionsList() {
 		setSearchKeyword(event.target.value);
 	}
 
+	function AddRecommendation() {
+		if (authenticated) {
+			return (
+				<a className="btn btn-primary" href="/recommendations/add">
+					Add a Recommendation
+				</a>
+			);
+		} else {
+			return (
+				<></>
+			);
+		}
+	}
+
 	return (
 		<div>
 			<div className="mb-3">
@@ -173,11 +187,7 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				{authenticated &&
-					<a className="btn btn-primary" href="/recommendations/add">
-						Add a Recommendationddd
-					</a>
-				}
+				<AddRecommendation />
 			</div>
 		</div>
 	);
