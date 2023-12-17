@@ -18,11 +18,6 @@ If using Eclipse, you can also run the project in the following way:
 You can find the deployed version of the application here:
 [Deployed URL](https://cool-reads-peaches.onrender.com)
 
-How to run the tests:
-
-1. Open the terminal where your project is located
-2. Run the following command ./mvnw test
-
 ### Running the Application from the JAR File
 
 1. **Download the Latest Release JAR File:**
@@ -39,6 +34,11 @@ How to run the tests:
 
    ```bash
    java -jar application.jar
+
+### How to run the tests:
+
+1. Open the terminal where your project is located
+2. Run the following command `./mvnw test`
 
 ## Documentation
 - Link to Swagger documentation: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
