@@ -13,8 +13,10 @@ export default function RecommendaionsList() {
 	const fetchAuthenticatedUsername = async () => {
 		try {
 			const response = await fetch('/api/users/current');
-			if (!response.ok && response.status !== 401) {
-				throw new Error("Something went wrong: " + response.statusText);
+			if (!response.ok) {
+				if (response.status !== 401)
+					throw new Error("Something went wrong: " + response.statusText);
+				setAuthenticatedUser(null);
 			}
 			response.json()
 				.then(data => {
