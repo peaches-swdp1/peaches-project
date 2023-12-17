@@ -23,8 +23,7 @@ export default function RecommendaionsList() {
 			}
 			response.json()
 				.then(data => {
-					setAuthenticatedUser(data);
-					setAuthenticated(true);
+					
 				})
 				.catch(err => console.error(err));
 		} catch (error) {
@@ -47,8 +46,6 @@ export default function RecommendaionsList() {
 	}
 
 	useEffect(() => {
-		setAuthenticatedUser(null);
-		setAuthenticated(false);
 		fetchCategories();
 		fetchAuthenticatedUsername();
 	}, []);
