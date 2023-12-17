@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import fetchRecommendations from "./fetchRecommendations";
 import RecommendationListItem from "./RecommendationListItem";
 
 export default function RecommendaionsList() {
@@ -69,13 +68,21 @@ export default function RecommendaionsList() {
 		}
 	}
 
-	const fetchAllRecommendations = () => {
-		fetchRecommendations()
-			.then(data => {
-				setRecommendations(data)
-				setOriginalRecommendations(data)
-			})
-			.catch(error => console.error("Error fetching trainings:", error))
+	const fetchAllRecommendations = async () => {
+		try {
+			const response = await fetch("/api/recommendations");
+			if (!response.ok) {
+				throw new Error("Something went wrong: " + response.statusText);
+			}
+			response.json()
+				.then(data => {
+					setRecommendations(data)
+					setOriginalRecommendations(data)
+				})
+				.catch(error => console.error("Error fetching trainings:", error));
+		} catch (error) {
+			console.error("Error fetching trainings:", error);
+		}
 	}
 
 	useEffect(() => {

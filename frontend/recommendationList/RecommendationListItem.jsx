@@ -2,18 +2,22 @@ import React from 'react';
 
 export default function RecommendationListItem({ recommendation, onDelete, authenticatedUser, authenticated }) {
 
-	const handleDelete = () => {
-		const confirmDelete = window.confirm("Are you sure you want to delete this recommendation?");
-
-		if (confirmDelete) {
-			fetch(`/recommendations/${recommendation.id}/delete`, { method: "POST" })
-				.then(() => {
-					onDelete(recommendation.id);
-
-				})
-				.catch((error) => console.error('Error deleting recommendation:', error));
+	const fetchDeleteRecommendation = async (id) => {
+		if (!window.confirm("Are you sure you want to delete this recommendation?")) {
+			return null;
 		}
-	};
+		try {
+			const response = await fetch(`/api/recommendations/${id}/delete`, {
+				method: 'DELETE',
+			});
+			if (!response.ok) {
+				throw new Error("Something went wrong: " + response.statusText);
+			}
+			onDelete(id);
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 
 	return (
@@ -33,7 +37,7 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 			{authenticated && authenticatedUser.userId === recommendation.appUser.userId &&
 				<td>
 
-					<button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+					<button className="btn btn-danger" onClick={() => fetchDeleteRecommendation(recommendation.id)}>Delete</button>
 
 				</td>
 			}
