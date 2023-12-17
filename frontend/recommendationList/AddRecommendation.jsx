@@ -1,3 +1,4 @@
+import React from "react";
 export default function AddRecommendation({ isAuthenticated }) {
 	if (isAuthenticated) {
 		return (
