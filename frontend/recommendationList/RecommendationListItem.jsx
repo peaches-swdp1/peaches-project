@@ -8,7 +8,7 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 		}
 		try {
 			const response = await fetch(`/recommendations/${id}/delete`, {
-				method: 'DELETE',
+				method: 'POST',
 			});
 			if (!response.ok) {
 				throw new Error("Something went wrong: " + response.statusText);
