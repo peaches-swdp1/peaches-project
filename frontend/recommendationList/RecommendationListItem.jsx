@@ -23,14 +23,14 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 			<td>{recommendation.description}</td>
 			<td>{recommendation.category?.name}</td>
 			<td>{new Date(recommendation.createdOn).toLocaleDateString()}</td>
-			{authenticatedUser.userId === recommendation.appUser.userId &&
+			{authenticatedUser && authenticatedUser.userId === recommendation.appUser.userId &&
 				<td>
 					<a className="btn btn-primary" href={`/recommendations/edit/${recommendation.id}`}>
 						Edit
 					</a>
 				</td>
 			}
-			{authenticatedUser.userId === recommendation.appUser.userId &&
+			{authenticatedUser && authenticatedUser.userId === recommendation.appUser.userId &&
 				<td>
 
 					<button className="btn btn-danger" onClick={handleDelete}>Delete</button>

@@ -29,6 +29,9 @@ export default function RecommendaionsList() {
 	}
 
 	useEffect(() => {
+		console.log(authenticatedUser);
+		if (authenticatedUser)
+			console.log('YUP');
 		fetchAuthenticatedUsername();
 	}, []);
 
@@ -164,7 +167,7 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				{authenticatedUser !== null &&
+				{authenticatedUser &&
 					<a className="btn btn-primary" href="/recommendations/add">
 						Add a Recommendation
 					</a>
