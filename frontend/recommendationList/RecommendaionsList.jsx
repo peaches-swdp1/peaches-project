@@ -119,7 +119,7 @@ export default function RecommendaionsList() {
 		if (authenticated) {
 			return (
 				<a className="btn btn-primary" href="/recommendations/add">
-					Add a Recommendation
+					Add addd Recommendation
 				</a>
 			);
 		} else {

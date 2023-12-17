@@ -1,6 +1,8 @@
 package fi.haagahelia.coolreads.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import fi.haagahelia.coolreads.dto.AddCategoryDto;
+import fi.haagahelia.coolreads.model.AppUser;
 import fi.haagahelia.coolreads.model.Category;
+import fi.haagahelia.coolreads.repository.AppUserRepository;
 import fi.haagahelia.coolreads.repository.CategoryRepository;
 
 @Controller
 public class CategoryController {
 	@Autowired
 	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private AppUserRepository appUserRepository;
 
 	@GetMapping("/category")
 	public String renderCategoryList(Model model) {
@@ -30,16 +37,23 @@ public class CategoryController {
 	}
 
 	@PostMapping("/categories/add")
-	public String addMessage(@ModelAttribute AddCategoryDto category, Model model) {
+	public String addMessage(@ModelAttribute AddCategoryDto category, @AuthenticationPrincipal UserDetails userDetails,
+			Model model) {
 		Category existingCategory = categoryRepository.findByName(category.getName());
-		
+
 		if (existingCategory != null) {
-	        model.addAttribute("errorMessage", "Category with this name already exists. Please choose a different name.");
-	        return "addcategory";
-	    }
-		
-//		Category newCategory = new Category(category.getName());
-//		categoryRepository.save(newCategory);
+			model.addAttribute("errorMessage",
+					"Category with this name already exists. Please choose a different name.");
+			return "addcategory";
+		}
+
+		AppUser user = appUserRepository.findOneByUsername(userDetails.getUsername()).orElse(null);
+
+		if (user == null)
+			return "redirect:/category";
+
+		Category newCategory = new Category(category.getName(), user);
+		categoryRepository.save(newCategory);
 
 		return "redirect:/category";
 	}
