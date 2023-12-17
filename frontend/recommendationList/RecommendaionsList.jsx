@@ -13,15 +13,12 @@ export default function RecommendaionsList() {
 	const fetchAuthenticatedUsername = async () => {
 		try {
 			const response = await fetch('/api/users/current');
-			console.log(response.status);
-
 			if (!response.ok && response.status !== 401) {
 				throw new Error("Something went wrong: " + response.statusText);
 			}
 			response.json()
 				.then(data => {
 					setAuthenticatedUser(data);
-					console.log(data);
 				})
 				.catch(err => console.error(err));
 		} catch (error) {
@@ -158,8 +155,8 @@ export default function RecommendaionsList() {
 								onDelete={(deletedId) => {
 									setRecommendations((prevRecommendations) =>
 										prevRecommendations.filter((rec) => rec.id !== deletedId));
-								}
-								}
+								}}
+								authenticatedUser={authenticatedUser}
 							/>
 						))}
 					</tbody>
