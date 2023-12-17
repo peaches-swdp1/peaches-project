@@ -28,7 +28,7 @@ public class WebSecurityConfig {
 								antMatcher("/api/**"), 
 								antMatcher("/error"), 
 								antMatcher("/recommendationlist"),
-								antMatcher("/categorylist"))
+								antMatcher("/category"))
 				.permitAll().anyRequest().authenticated());
 
 		http.formLogin((form) -> form.loginPage("/login").permitAll());

@@ -164,7 +164,7 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				{authenticatedUser &&
+				{authenticatedUser !== null &&
 					<a className="btn btn-primary" href="/recommendations/add">
 						Add a Recommendation
 					</a>
