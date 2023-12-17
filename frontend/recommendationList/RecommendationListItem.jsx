@@ -7,8 +7,11 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 			return null;
 		}
 		try {
-			const response = await fetch(`/recommendations/${id}/delete`, {
-				method: 'POST',
+			const response = await fetch(`/api/recommendations/${id}/delete`, {
+				method: 'DELETE',
+				headers: {
+					"X-CSRF-TOKEN": document.getElementById("_csrf").getAttribute("content"),
+				},
 			});
 			if (!response.ok) {
 				throw new Error("Something went wrong: " + response.statusText);

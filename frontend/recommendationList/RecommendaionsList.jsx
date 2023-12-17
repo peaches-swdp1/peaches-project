@@ -47,6 +47,8 @@ export default function RecommendaionsList() {
 	}
 
 	useEffect(() => {
+		setAuthenticatedUser(null);
+		setAuthenticated(false);
 		fetchCategories();
 		fetchAuthenticatedUsername();
 	}, []);

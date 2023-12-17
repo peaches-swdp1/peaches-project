@@ -112,21 +112,6 @@ public class ReadingRecommendationController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/recommendations/delete")
-	public String deleteRecommendation(@RequestParam("id") Long readingRecommendationId,
-			@AuthenticationPrincipal UserDetails userDetails) {
-		ReadingRecommendation recommendationToDelete = readingRepository.findById(readingRecommendationId).orElse(null);
-
-		AppUser user = userRepository.findOneByUsername(userDetails.getUsername()).orElse(null);
-
-		if (user == null || recommendationToDelete == null) 
-			return "redirect:/";
-
-		if (user.getUserId() != recommendationToDelete.getAppUser().getUserId())
-			return "redirect:/";
-
-		readingRepository.deleteById(readingRecommendationId);
-		return "redirect:/";
-	}
+	
 
 }
