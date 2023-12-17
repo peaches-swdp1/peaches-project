@@ -11,9 +11,21 @@ export default function RecommendaionsList() {
 	const [originalRecommendations, setOriginalRecommendations] = useState([]);
 
 	const fetchAuthenticatedUsername = async () => {
-		const response = await fetch('/api/users/current');
-		if (!response.ok) {
+		try {
+			const response = await fetch('/api/users/current');
 			console.log(response.status);
+
+			if (!response.ok && response.status !== 401) {
+				throw new Error("Something went wrong: " + response.statusText);
+			}
+			response.json()
+				.then(data => {
+					setAuthenticatedUser(data);
+					console.log(data);
+				})
+				.catch(err => console.error(err));
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
