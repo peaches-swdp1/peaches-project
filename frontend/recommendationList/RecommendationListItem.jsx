@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function RecommendationListItem({ recommendation, onDelete, authenticatedUser }) {
+export default function RecommendationListItem({ recommendation, onDelete, authenticatedUser, authenticated }) {
 
 	const handleDelete = () => {
 		const confirmDelete = window.confirm("Are you sure you want to delete this recommendation?");
@@ -23,14 +23,14 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 			<td>{recommendation.description}</td>
 			<td>{recommendation.category?.name}</td>
 			<td>{new Date(recommendation.createdOn).toLocaleDateString()}</td>
-			{authenticatedUser && authenticatedUser.userId === recommendation.appUser.userId &&
+			{authenticated && authenticatedUser.userId === recommendation.appUser.userId &&
 				<td>
 					<a className="btn btn-primary" href={`/recommendations/edit/${recommendation.id}`}>
 						Edit
 					</a>
 				</td>
 			}
-			{authenticatedUser && authenticatedUser.userId === recommendation.appUser.userId &&
+			{authenticated && authenticatedUser.userId === recommendation.appUser.userId &&
 				<td>
 
 					<button className="btn btn-danger" onClick={handleDelete}>Delete</button>

@@ -4,6 +4,7 @@ import RecommendationListItem from "./RecommendationListItem";
 
 export default function RecommendaionsList() {
 	const [authenticatedUser, setAuthenticatedUser] = useState(null);
+	const [authenticated, setAuthenticated] = useState(false);
 	const [categories, setCategories] = useState([]);
 	const [selectedCategoryId, setSelectedCategoryId] = useState("any");
 	const [recommendations, setRecommendations] = useState([]);
@@ -16,11 +17,15 @@ export default function RecommendaionsList() {
 			if (!response.ok) {
 				if (response.status !== 401)
 					throw new Error("Something went wrong: " + response.statusText);
-				setAuthenticatedUser(null);
+				if (authenticated) {
+					setAuthenticatedUser(null);
+					setAuthenticated(false);
+				}
 			}
 			response.json()
 				.then(data => {
 					setAuthenticatedUser(data);
+					setAuthenticated(true);
 				})
 				.catch(err => console.error(err));
 		} catch (error) {
@@ -162,14 +167,15 @@ export default function RecommendaionsList() {
 										prevRecommendations.filter((rec) => rec.id !== deletedId));
 								}}
 								authenticatedUser={authenticatedUser}
+								authenticated={authenticated}
 							/>
 						))}
 					</tbody>
 				</table>
 
-				{authenticatedUser &&
+				{authenticated &&
 					<a className="btn btn-primary" href="/recommendations/add">
-						Add a Recommendation
+						Add a Recommendationddd
 					</a>
 				}
 			</div>
