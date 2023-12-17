@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RecommendationListItem from "./RecommendationListItem";
+import AddRecommendation from './AddRecommendation';
 
 export default function RecommendaionsList() {
 	const [authenticatedUser, setAuthenticatedUser] = useState(null);
@@ -23,7 +24,8 @@ export default function RecommendaionsList() {
 			}
 			response.json()
 				.then(data => {
-					
+					setAuthenticated(true);
+					setAuthenticatedUser(data);
 				})
 				.catch(err => console.error(err));
 		} catch (error) {
@@ -113,20 +115,6 @@ export default function RecommendaionsList() {
 
 	function handleSearchInputChange(event) {
 		setSearchKeyword(event.target.value);
-	}
-
-	function AddRecommendation({ isAuthenticated }) {
-		if (isAuthenticated) {
-			return (
-				<a className="btn btn-primary" href="/recommendations/add">
-					Add a Recommendation
-				</a>
-			);
-		} else {
-			return (
-				<></>
-			);
-		}
 	}
 
 	return (
