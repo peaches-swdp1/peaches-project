@@ -35,16 +35,20 @@ public class ReadingRecommendation {
 	private Instant createdOn;
 	@UpdateTimestamp(source = SourceType.DB)
 	private Instant lastUpdatedOn;
+	
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private AppUser appUser;
 
-	public ReadingRecommendation() {
-	}
+	public ReadingRecommendation() {}
 
-	public ReadingRecommendation(String title, String link, String description, Category category) {
+	public ReadingRecommendation(String title, String link, String description, Category category, AppUser appUser) {
 		super();
 		this.title = title;
 		this.link = link;
 		this.description = description;
 		this.category = category;
+		this.appUser = appUser;
 	}
 
 	public Long getId() {
@@ -102,4 +106,12 @@ public class ReadingRecommendation {
     public void setLastUpdatedOn(Instant lastUpdatedOn) {
         this.lastUpdatedOn = lastUpdatedOn;
     }
+
+	public AppUser getAppUser() {
+		return appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}
 }

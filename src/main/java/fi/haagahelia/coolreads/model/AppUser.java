@@ -1,10 +1,15 @@
 package fi.haagahelia.coolreads.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,7 +17,7 @@ import jakarta.persistence.Table;
 public class AppUser {
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long userId;
 
 	@Column(unique = true, nullable = false)
 	private String username;
@@ -24,8 +29,15 @@ public class AppUser {
 	@Column(nullable = false)
 	private String role;
 
-	public AppUser() {
-	}
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser")
+	private List<ReadingRecommendation> readingRecommendations;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser")
+	private List<Category> categories;
+	
+	public AppUser() {}
 
 	public AppUser(String username, String passwordHash, String role) {
 		this.username = username;
@@ -33,12 +45,12 @@ public class AppUser {
 		this.role = role;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -63,6 +75,22 @@ public class AppUser {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public List<ReadingRecommendation> getReadingRecommendations() {
+		return readingRecommendations;
+	}
+
+	public void setReadingRecommendations(List<ReadingRecommendation> readingRecommendations) {
+		this.readingRecommendations = readingRecommendations;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 }

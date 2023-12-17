@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -26,10 +28,15 @@ public class Category {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<ReadingRecommendation> readingRecommendations;
 	
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private AppUser appUser;
+	
 	public Category() {}
 
-	public Category( String name) {
+	public Category(String name, AppUser appUser) {
 		this.name = name;
+		this.appUser = appUser;
 	}
 
 	public Long getCategoryId() {
@@ -55,5 +62,12 @@ public class Category {
 	public void setReadingRecommendations(List<ReadingRecommendation> readingRecommendations) {
 		this.readingRecommendations = readingRecommendations;
 	}
-	
+
+	public AppUser getAppUser() {
+		return appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}	
 }

@@ -54,9 +54,9 @@ public class ReadingRecommendationController {
 			@ModelAttribute("readingRecommendationDto") AddReadingRecommendationDto readingRecommendation) {
 
 		Category category = categoryRepository.findByName(readingRecommendation.getCategoryName());
-		ReadingRecommendation newReadingRecommendation = new ReadingRecommendation(readingRecommendation.getTitle(),
-				readingRecommendation.getLink(), readingRecommendation.getDescription(), category);
-		readingRepository.save(newReadingRecommendation);
+//		ReadingRecommendation newReadingRecommendation = new ReadingRecommendation(readingRecommendation.getTitle(),
+//				readingRecommendation.getLink(), readingRecommendation.getDescription(), category);
+//		readingRepository.save(newReadingRecommendation);
 
 		return "redirect:/";
 	}
@@ -79,10 +79,10 @@ public class ReadingRecommendationController {
 	public String editRecommendation(@PathVariable Long id,
 			@ModelAttribute("readingRecommendationDto") AddReadingRecommendationDto readingRecommendation) {
 		Category category = categoryRepository.findByName(readingRecommendation.getCategoryName());
-		ReadingRecommendation updatedRecommendation = new ReadingRecommendation(readingRecommendation.getTitle(),
-				readingRecommendation.getLink(), readingRecommendation.getDescription(), category);
-		updatedRecommendation.setId(id);
-		readingRepository.save(updatedRecommendation);
+//		ReadingRecommendation updatedRecommendation = new ReadingRecommendation(readingRecommendation.getTitle(),
+//				readingRecommendation.getLink(), readingRecommendation.getDescription(), category);
+//		updatedRecommendation.setId(id);
+//		readingRepository.save(updatedRecommendation);
 
 		return "redirect:/";
 	}

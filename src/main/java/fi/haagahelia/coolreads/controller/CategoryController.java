@@ -38,8 +38,8 @@ public class CategoryController {
 	        return "addcategory";
 	    }
 		
-		Category newCategory = new Category(category.getName());
-		categoryRepository.save(newCategory);
+//		Category newCategory = new Category(category.getName());
+//		categoryRepository.save(newCategory);
 
 		return "redirect:/category";
 	}
