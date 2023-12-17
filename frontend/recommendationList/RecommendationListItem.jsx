@@ -7,7 +7,7 @@ export default function RecommendationListItem({ recommendation, onDelete, authe
 			return null;
 		}
 		try {
-			const response = await fetch(`/api/recommendations/${id}/delete`, {
+			const response = await fetch(`/recommendations/${id}/delete`, {
 				method: 'DELETE',
 			});
 			if (!response.ok) {
