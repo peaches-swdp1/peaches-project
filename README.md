@@ -50,7 +50,8 @@ Link to Swagger documentation: [http://localhost:8080/swagger-ui/index.html](htt
 * [Sprin2 2 Backlog](https://github.com/orgs/peaches-swdp1/projects/6)
 * [Sprint 3 Backlog](https://github.com/orgs/peaches-swdp1/projects/8)
 
-
+## License
+Cool Reads is [MIT licensed](https://github.com/peaches-swdp1/peaches-project/blob/main/LICENSE)
 
 
 
