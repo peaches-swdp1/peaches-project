@@ -179,7 +179,7 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				<AddRecommendation isAuthenticated={authenticated} />
+				{authenticated && <AddRecommendation isAuthenticated={authenticated} />}
 			</div>
 		</div>
 	);
