@@ -33,13 +33,6 @@ export default function RecommendaionsList() {
 		}
 	}
 
-	useEffect(() => {
-		console.log(authenticatedUser);
-		if (authenticatedUser)
-			console.log('YUP');
-		fetchAuthenticatedUsername();
-	}, []);
-
 	const fetchCategories = async () => {
 		try {
 			const response = await fetch('/api/categories');
@@ -56,6 +49,7 @@ export default function RecommendaionsList() {
 
 	useEffect(() => {
 		fetchCategories();
+		fetchAuthenticatedUsername();
 	}, []);
 
 	const fetchRecommendationsByCategory = async () => {
@@ -115,9 +109,8 @@ export default function RecommendaionsList() {
 		setSearchKeyword(event.target.value);
 	}
 
-	function AddRecommendation() {
-		if (authenticated) {
-			console.log('wtf');
+	function AddRecommendation({ isAuthenticated }) {
+		if (isAuthenticated) {
 			return (
 				<a className="btn btn-primary" href="/recommendations/add">
 					Add a Recommendation
@@ -168,14 +161,18 @@ export default function RecommendaionsList() {
 							<th>Description</th>
 							<th>Category</th>
 							<th>Added on</th>
-							<th sec:authorize="isAuthenticated()">Edit</th>
-							<th sec:authorize="isAuthenticated()">Delete</th>
+							{authenticated &&
+								<th>Edit</th>
+							}
+							{authenticated &&
+								<th>Delete</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
-						{recommendations.map((recommendations) => (
+						{recommendations.map((recommendation) => (
 							<RecommendationListItem
-								recommendation={recommendations}
+								recommendation={recommendation}
 								key={recommendations.id}
 								onDelete={(deletedId) => {
 									setRecommendations((prevRecommendations) =>
@@ -188,7 +185,7 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				<AddRecommendation />
+				<AddRecommendation isAuthenticated={authenticated} />
 			</div>
 		</div>
 	);
