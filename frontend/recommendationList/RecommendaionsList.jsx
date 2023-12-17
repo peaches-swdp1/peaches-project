@@ -120,7 +120,7 @@ export default function RecommendaionsList() {
 			console.log('wtf');
 			return (
 				<a className="btn btn-primary" href="/recommendations/add">
-					Add addd Recommendation
+					Add a Recommendation
 				</a>
 			);
 		} else {
