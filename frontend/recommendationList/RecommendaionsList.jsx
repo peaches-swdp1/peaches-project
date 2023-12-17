@@ -162,9 +162,11 @@ export default function RecommendaionsList() {
 					</tbody>
 				</table>
 
-				<a className="btn btn-primary" href="/recommendations/add">
-					Add a Recommendation
-				</a>
+				{authenticatedUser &&
+					<a className="btn btn-primary" href="/recommendations/add">
+						Add a Recommendation
+					</a>
+				}
 			</div>
 		</div>
 	);
