@@ -117,6 +117,7 @@ export default function RecommendaionsList() {
 
 	function AddRecommendation() {
 		if (authenticated) {
+			console.log('wtf');
 			return (
 				<a className="btn btn-primary" href="/recommendations/add">
 					Add addd Recommendation
@@ -167,8 +168,8 @@ export default function RecommendaionsList() {
 							<th>Description</th>
 							<th>Category</th>
 							<th>Added on</th>
-							<th>Edit</th>
-							<th>Delete</th>
+							<th sec:authorize="isAuthenticated()">Edit</th>
+							<th sec:authorize="isAuthenticated()">Delete</th>
 						</tr>
 					</thead>
 					<tbody>

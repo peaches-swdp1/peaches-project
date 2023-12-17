@@ -48,7 +48,7 @@ public class ReadingRecommendationController {
 	}
 
 	@PostMapping("/recommendations/add")
-	public String addMessage(
+	public String addRecommendation(
 			@ModelAttribute("readingRecommendationDto") AddReadingRecommendationDto readingRecommendation,
 			@AuthenticationPrincipal UserDetails userDetails) {
 

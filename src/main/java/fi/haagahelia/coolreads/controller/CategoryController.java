@@ -1,5 +1,7 @@
 package fi.haagahelia.coolreads.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ import fi.haagahelia.coolreads.repository.CategoryRepository;
 
 @Controller
 public class CategoryController {
+	private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -37,8 +41,15 @@ public class CategoryController {
 	}
 
 	@PostMapping("/categories/add")
-	public String addMessage(@ModelAttribute AddCategoryDto category, @AuthenticationPrincipal UserDetails userDetails,
-			Model model) {
+	public String addCategory(@ModelAttribute AddCategoryDto category, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
+		AppUser user = appUserRepository.findOneByUsername(userDetails.getUsername()).orElse(null);
+
+		if (user == null)
+			return "redirect:/category";
+
+		log.info("Goodd");
+
 		Category existingCategory = categoryRepository.findByName(category.getName());
 
 		if (existingCategory != null) {
@@ -46,11 +57,6 @@ public class CategoryController {
 					"Category with this name already exists. Please choose a different name.");
 			return "addcategory";
 		}
-
-		AppUser user = appUserRepository.findOneByUsername(userDetails.getUsername()).orElse(null);
-
-		if (user == null)
-			return "redirect:/category";
 
 		Category newCategory = new Category(category.getName(), user);
 		categoryRepository.save(newCategory);
